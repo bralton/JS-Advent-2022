@@ -43,7 +43,6 @@ const Home: NextPage = () => {
           bg="light"
           key="day1"
           text="dark"
-          style={{ width: "18rem" }}
           className="mb-2"
         >
           <Card.Body>
@@ -61,7 +60,7 @@ const Home: NextPage = () => {
     
    const renderRow = (daysForRow: Day[]):JSX.Element => {
      return (
-       <Row xs='1' sm='2' md='4'>
+       <Row xs='1' sm='2' md='4' className='m-2'>
        {daysForRow.map((day) => <Col key={`day-${day.number}`}>{renderCard(day)}</Col>)}
        </Row>
      )
