@@ -61,7 +61,7 @@ const Home: NextPage = () => {
     
    const renderRow = (daysForRow: Day[]):JSX.Element => {
      return (
-       <Row xs='1' sm='2' md='5'>
+       <Row xs='1' sm='2' md='4'>
        {daysForRow.map((day) => <Col key={`day-${day.number}`}>{renderCard(day)}</Col>)}
        </Row>
      )
@@ -69,7 +69,7 @@ const Home: NextPage = () => {
    
   const renderGrid = ():JSX.Element => { 
     let grid = [];
-    const chunkSize = 5;
+    const chunkSize = 4;
     for (let i = 0; i < days.length; i += chunkSize) {
       const chunk = days.slice(i, i + chunkSize);
       grid.push(renderRow(chunk));
