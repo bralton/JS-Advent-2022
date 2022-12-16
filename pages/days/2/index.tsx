@@ -1,5 +1,5 @@
-import React from "react";
-import Image from "next/image";
+import React, { useState } from "react";
+import Image, { StaticImageData } from "next/image";
 import { NextPage } from "next";
 
 // Style import
@@ -15,51 +15,76 @@ import plateFrenchFries from "./images/plate__french-fries.png";
 import plateSalmonVegetables from "./images/plate__salmon-vegetables.png";
 import plateSpaghettiMeatSauce from "./images/plate__spaghetti-meat-sauce.png";
 
+// Type declarations
+interface MenuItem {
+  name: string;
+  price: number;
+  image: StaticImageData;
+  alt: string;
+}
+
+interface BasketItem extends MenuItem {
+  count: number;
+}
+
 const Day2: NextPage = () => {
-  const menuItems = [
+  const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
+  const menu: MenuItem[] = [
     {
       name: "French Fries with Ketchup",
       price: 223,
-      image: "plate__french-fries.png",
+      image: plateFrenchFries,
       alt: "French Fries",
-      count: 0,
     },
     {
       name: "Salmon and Vegetables",
       price: 512,
-      image: "plate__salmon-vegetables.png",
+      image: plateSalmonVegetables,
       alt: "Salmon and Vegetables",
-      count: 0,
     },
     {
       name: "Spaghetti Meat Sauce",
       price: 782,
-      image: "plate__spaghetti-meat-sauce.png",
+      image: plateSpaghettiMeatSauce,
       alt: "Spaghetti with Meat Sauce",
-      count: 0,
     },
     {
       name: "Bacon, Eggs, and Toast",
       price: 599,
-      image: "plate__bacon-eggs.png",
+      image: plateBaconEggs,
       alt: "Bacon, Eggs, and Toast",
-      count: 0,
     },
     {
       name: "Chicken Salad with Parmesan",
       price: 698,
-      image: "plate__chicken-salad.png",
+      image: plateChickenSalad,
       alt: "Chicken Salad with Parmesan",
-      count: 0,
     },
     {
       name: "Fish Sticks and Fries",
       price: 634,
-      image: "plate__fish-sticks-fries.png",
+      image: plateFishStickFries,
       alt: "Fish Sticks and Fries",
-      count: 0,
     },
   ];
+
+  const generateMenuItem = (item: MenuItem): JSX.Element => {
+    return (
+      <li>
+        <div className={styles.plate}>
+          <Image src={item.image} alt={item.alt} className={styles.plate} />
+        </div>
+        <div className={styles.content}>
+          <p className={styles.menuItem}>{item.name}</p>
+          <p className={styles.price}>${item.price / 100}</p>
+          <button className={styles.inCart}>
+            <Image src={check} alt="Check" />
+            In Cart
+          </button>
+        </div>
+      </li>
+    );
+  };
 
   return (
     <div className={styles.outerWrapper}>
@@ -67,99 +92,15 @@ const Day2: NextPage = () => {
         <div className={styles.panel}>
           <h1>To Go Menu</h1>
           <ul className={styles.menu}>
-            <li>
-              <div className={styles.plate}>
-                <Image
-                  src={plateFrenchFries}
-                  alt="French Fries"
-                  className={styles.plate}
-                />
-              </div>
-              <div className={styles.content}>
-                <p className={styles.menuItem}>French Fries with Ketchup</p>
-                <p className={styles.price}>$2.23</p>
-                <button className={styles.inCart}>
-                  <Image src={check} alt="Check" />
-                  In Cart
-                </button>
-              </div>
-            </li>
-            <li>
-              <div className={styles.plate}>
-                <Image
-                  src={plateSalmonVegetables}
-                  alt="Salmon and Vegetables"
-                  className={styles.plate}
-                />
-              </div>
-              <div className={styles.content}>
-                <p className={styles.menuItem}>Salmon and Vegetables</p>
-                <p className={styles.price}>$5.12</p>
-                <button className={styles.add}>Add to Cart</button>
-              </div>
-            </li>
-            <li>
-              <div className={styles.plate}>
-                <Image
-                  src={plateSpaghettiMeatSauce}
-                  alt="Spaghetti Meat Sauce"
-                  className={styles.plate}
-                />
-              </div>
-              <div className={styles.content}>
-                <p className={styles.menuItem}>Spaghetti with Meat Sauce</p>
-                <p className={styles.price}>$7.82</p>
-                <button className={styles.add}>Add to Cart</button>
-              </div>
-            </li>
-            <li>
-              <div className={styles.plate}>
-                <Image
-                  src={plateBaconEggs}
-                  alt="Bacon, Eggs, and Toast"
-                  className={styles.plate}
-                />
-              </div>
-              <div className={styles.content}>
-                <p className={styles.menuItem}>Bacon, Eggs, and Toast</p>
-                <p className={styles.price}>$5.99</p>
-                <button className={styles.add}>Add to Cart</button>
-              </div>
-            </li>
-            <li>
-              <div className={styles.plate}>
-                <Image
-                  src={plateChickenSalad}
-                  alt="Chicken Salad with Parmesean"
-                  className={styles.plate}
-                />
-              </div>
-              <div className={styles.content}>
-                <p className={styles.menuItem}>Chicken Salad with Parmesan</p>
-                <p className={styles.price}>$6.98</p>
-                <button className={styles.add}>Add to Cart</button>
-              </div>
-            </li>
-            <li>
-              <div className={styles.plate}>
-                <Image
-                  src={plateFishStickFries}
-                  alt="Fish Sticks and Fries"
-                  className={styles.plate}
-                />
-              </div>
-              <div className={styles.content}>
-                <p className={styles.menuItem}>Fish Sticks and Fries</p>
-                <p className={styles.price}>$6.34</p>
-                <button className={styles.add}>Add to Cart</button>
-              </div>
-            </li>
+            {menu.map((item) => generateMenuItem(item))}
           </ul>
         </div>
 
         <div className={`${styles.panel} ${styles.cart}`}>
           <h1>Your Cart</h1>
-          {/* <p className={styles.empty}>Your cart is empty.</p> */}
+          {basketItems.length > 0 ? null : (
+            <p className={styles.empty}>Your cart is empty.</p>
+          )}
 
           <ul className={styles.cartSummary}>
             {/* <!-- item 1 --> */}
