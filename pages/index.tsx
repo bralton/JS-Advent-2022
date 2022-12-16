@@ -157,7 +157,7 @@ const Home: NextPage = () => {
         <meta name="description" content="2022 Javascript Advent Calendar" />
       </Head>
 
-      <main>{renderGrid()}</main>
+      <main className="m-0 py-5 bg-dark">{renderGrid()}</main>
 
       <footer></footer>
     </div>

@@ -55,55 +55,60 @@ const Day1: NextPage = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={`${styles.ring} ${timerFinished ? styles.ending : ""}`}>
-        <svg width="518" height="518" viewBox="0 0 518 518">
-          <circle strokeWidth="9px" x="0" y="y" cx="259" cy="259" r="254" />
-        </svg>
-      </div>
-
-      <div className={styles.timer}>
-        <div className={styles.time}>
-          <div className={styles.minutes}>
-            <input
-              type="text"
-              value={("0" + minutes).slice(-2)}
-              onChange={(e) =>
-                isNaN(e.target.valueAsNumber)
-                  ? setMinutes(Number.parseInt(e.target.value.slice(-2)))
-                  : null
-              }
-              disabled={inputDisabled}
-            />
-          </div>
-          <div className={styles.colon}>:</div>
-          <div className={styles.seconds}>
-            <input
-              type="text"
-              value={("0" + seconds).slice(-2)}
-              onChange={(e) =>
-                isNaN(e.target.valueAsNumber)
-                  ? setSeconds(Number.parseInt(e.target.value.slice(-2)))
-                  : null
-              }
-              disabled={inputDisabled}
-            />
-          </div>
+    <div className={styles.outerWrapper}>
+      <div className={styles.wrapper}>
+        <div className={`${styles.ring} ${timerFinished ? styles.ending : ""}`}>
+          <svg width="518" height="518" viewBox="0 0 518 518">
+            <circle strokeWidth="9px" x="0" y="y" cx="259" cy="259" r="254" />
+          </svg>
         </div>
-        <button
-          className={styles.start}
-          onClick={() => (timerStarted ? stopTimer() : startTimer())}
-          disabled={!inputDisabled}
-        >
-          {timerStarted ? "stop" : "start"}
-        </button>
-        <button
-          className={styles.settings}
-          onClick={() => toggleInputs()}
-          disabled={timerStarted}
-        >
-          <Image src={inputDisabled ? gearImage : checkImage} alt="Settings" />
-        </button>
+
+        <div className={styles.timer}>
+          <div className={styles.time}>
+            <div className={styles.minutes}>
+              <input
+                type="text"
+                value={("0" + minutes).slice(-2)}
+                onChange={(e) =>
+                  isNaN(e.target.valueAsNumber)
+                    ? setMinutes(Number.parseInt(e.target.value.slice(-2)))
+                    : null
+                }
+                disabled={inputDisabled}
+              />
+            </div>
+            <div className={styles.colon}>:</div>
+            <div className={styles.seconds}>
+              <input
+                type="text"
+                value={("0" + seconds).slice(-2)}
+                onChange={(e) =>
+                  isNaN(e.target.valueAsNumber)
+                    ? setSeconds(Number.parseInt(e.target.value.slice(-2)))
+                    : null
+                }
+                disabled={inputDisabled}
+              />
+            </div>
+          </div>
+          <button
+            className={styles.start}
+            onClick={() => (timerStarted ? stopTimer() : startTimer())}
+            disabled={!inputDisabled}
+          >
+            {timerStarted ? "stop" : "start"}
+          </button>
+          <button
+            className={styles.settings}
+            onClick={() => toggleInputs()}
+            disabled={timerStarted}
+          >
+            <Image
+              src={inputDisabled ? gearImage : checkImage}
+              alt="Settings"
+            />
+          </button>
+        </div>
       </div>
     </div>
   );
