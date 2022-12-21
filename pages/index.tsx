@@ -151,13 +151,13 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className='landingPageChristmasBackground'>
+    <div className="landingPageChristmasBackground">
       <Head>
         <title>2022 JS Advent Calendar</title>
         <meta name="description" content="2022 Javascript Advent Calendar" />
       </Head>
 
-      <main className="m-0 py-5 bg-dark">{renderGrid()}</main>
+      <main className="m-0 py-5">{renderGrid()}</main>
 
       <footer></footer>
     </div>
