@@ -109,7 +109,7 @@ const Home: NextPage = () => {
         style={{ height: "100%" }}
         className="mb-2"
       >
-        <Card.Body>
+        <Card.Body className="d-flex flex-column">
           <Card.Title>
             Day {day.number} - {day.title}
           </Card.Title>
@@ -118,6 +118,7 @@ const Home: NextPage = () => {
             href={`/days/${day.number}`}
             color="primary"
             disabled={day.title === "Coming Soon"}
+            className="mt-auto"
           >
             Take a look
           </Button>
@@ -128,9 +129,11 @@ const Home: NextPage = () => {
 
   const renderRow = (daysForRow: Day[]): JSX.Element => {
     return (
-      <Row xs="1" sm="2" md="4" className="m-2">
+      <Row xs="1" sm="2" md="4" className="mx-2">
         {daysForRow.map((day) => (
-          <Col key={`day-${day.number}`}>{renderCard(day)}</Col>
+          <Col key={`day-${day.number}`} className="mb-2">
+            {renderCard(day)}
+          </Col>
         ))}
       </Row>
     );
@@ -148,13 +151,13 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className='landingPageChristmasBackground'>
+    <div className="landingPageChristmasBackground">
       <Head>
         <title>2022 JS Advent Calendar</title>
         <meta name="description" content="2022 Javascript Advent Calendar" />
       </Head>
 
-      <main>{renderGrid()}</main>
+      <main className="m-0 py-5">{renderGrid()}</main>
 
       <footer></footer>
     </div>
