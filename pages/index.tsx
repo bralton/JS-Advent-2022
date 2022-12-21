@@ -151,7 +151,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div>
+    <div className='landingPageChristmasBackground'>
       <Head>
         <title>2022 JS Advent Calendar</title>
         <meta name="description" content="2022 Javascript Advent Calendar" />
